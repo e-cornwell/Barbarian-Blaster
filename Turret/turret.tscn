@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://dwin256y60208"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cb20n"]
+height = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5kpma"]
+top_radius = 0.6
+bottom_radius = 0.6
+height = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cb20n"]
+albedo_color = Color(0.32096, 0.096512, 0.00281343, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5kpma"]
+material = SubResource("StandardMaterial3D_cb20n")
+size = Vector3(0.5, 0.2, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5kpma"]
+albedo_color = Color(0.235294, 0.235294, 0.235294, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_djkev"]
+material = SubResource("StandardMaterial3D_5kpma")
+top_radius = 0.17
+bottom_radius = 0.2
+height = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_djkev"]
+albedo_color = Color(0.235294, 0.235294, 0.235294, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ttsi1"]
+material = SubResource("StandardMaterial3D_djkev")
+radius = 0.2
+height = 0.4
+
+[node name="Turret" type="Node3D"]
+
+[node name="TurretBase" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CylinderMesh_cb20n")
+
+[node name="TurretTop" type="MeshInstance3D" parent="TurretBase"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+mesh = SubResource("CylinderMesh_5kpma")
+
+[node name="CannonBase" type="MeshInstance3D" parent="TurretBase/TurretTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+mesh = SubResource("BoxMesh_5kpma")
+
+[node name="CannonFront" type="MeshInstance3D" parent="TurretBase/TurretTop/CannonBase"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.234498, 0.343461)
+mesh = SubResource("CylinderMesh_djkev")
+skeleton = NodePath("../..")
+
+[node name="CannonBack" type="MeshInstance3D" parent="TurretBase/TurretTop/CannonBase/CannonFront"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.341015, 0)
+mesh = SubResource("SphereMesh_ttsi1")
