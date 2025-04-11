@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cqttcl1n2ccp"]
+[gd_scene load_steps=15 format=3 uid="uid://cqttcl1n2ccp"]
 
 [ext_resource type="PackedScene" uid="uid://c35684j5btit7" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_knq2t"]
 [ext_resource type="MeshLibrary" uid="uid://cp163ejsu4moa" path="res://MeshLibraries/SpaceLibrary.tres" id="1_lvb7b"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ce0is3pjj03ee" path="res://Base/base.tscn" id="3_o2j4u"]
 [ext_resource type="Script" uid="uid://hx6w382ji5ks" path="res://turret_manager.gd" id="5_cwwxe"]
 [ext_resource type="PackedScene" uid="uid://dwin256y60208" path="res://Turret/turret.tscn" id="6_ufkdr"]
+[ext_resource type="Script" uid="uid://b8ky56id6sukx" path="res://bank.gd" id="8_tv3th"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dq0bh"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -30,6 +31,12 @@ _data = {
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0)
 }
 point_count = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_epnn3"]
+font_size = 64
+font_color = Color(0.748529, 0.477824, 0.00344501, 1)
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
 
 [node name="BaseLevel" type="Node3D"]
 
@@ -118,5 +125,25 @@ transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 
 script = ExtResource("5_cwwxe")
 turret = ExtResource("6_ufkdr")
 enemy_path = NodePath("../EnemyPath")
+
+[node name="Bank" type="MarginContainer" parent="." groups=["bank"]]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+script = ExtResource("8_tv3th")
+
+[node name="Label" type="Label" parent="Bank"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "placeholder"
+label_settings = SubResource("LabelSettings_epnn3")
 
 [connection signal="timeout" from="EnemyPath/SpawnTimer" to="EnemyPath" method="spawn_enemy"]
