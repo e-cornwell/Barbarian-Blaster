@@ -22,4 +22,4 @@ func get_enemy_health() -> float:
 
 
 func _on_timer_timeout() -> void:
-	stop_spawning_enemies.emit
+	stop_spawning_enemies.emit()

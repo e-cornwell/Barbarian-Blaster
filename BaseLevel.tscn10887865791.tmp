@@ -66,12 +66,11 @@ data = {
 "cells": PackedInt32Array(65534, 65534, 1048576, 65535, 65534, 1048576, 0, 65534, 1048576, 65534, 2, 1310720, 65531, 65535, 1310720, 4, 65535, 1310720, 65531, 65534, 1310720, 65532, 65534, 1310720, 1, 65534, 1310720, 2, 65534, 1310720, 3, 65534, 1310720, 4, 65534, 1310720, 4, 0, 1310720, 4, 1, 1310720, 4, 2, 1310720, 65531, 0, 1310720, 65532, 2, 1310720, 65531, 2, 1310720, 65533, 2, 1310720, 65535, 2, 1310720, 0, 2, 1310720, 1, 2, 1310720, 2, 2, 1310720, 3, 2, 1310720, 65532, 0, 1310720, 65533, 0, 1310720, 65534, 0, 1310720, 65535, 0, 1310720, 0, 0, 1310720, 1, 0, 1310720, 2, 0, 1310720, 65532, 65535, 1310720)
 }
 
-[node name="EnemyPath" type="Path3D" parent="." node_paths=PackedStringArray("difficulty_manager", "victory_layer")]
+[node name="EnemyPath" type="Path3D" parent="." node_paths=PackedStringArray("difficulty_manager")]
 curve = SubResource("Curve3D_lvb7b")
 script = ExtResource("3_epnn3")
 enemy_scene = ExtResource("2_5x8ra")
 difficulty_manager = NodePath("../DifficultyManager")
-victory_layer = NodePath("../VictoryLayer")
 
 [node name="Road" type="CSGPolygon3D" parent="EnemyPath"]
 polygon = PackedVector2Array(-1, 0, -1, 0.1, 1, 0.1, 1, 0)
@@ -122,7 +121,6 @@ autostart = true
 
 [node name="Base" parent="." instance=ExtResource("3_o2j4u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -6)
-max_health = 50
 
 [node name="TurretManager" type="Node3D" parent="." node_paths=PackedStringArray("enemy_path")]
 transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0, 0)
@@ -151,17 +149,6 @@ text = "placeholder"
 label_settings = SubResource("LabelSettings_epnn3")
 
 [node name="DifficultyManager" parent="." instance=ExtResource("9_xkmwr")]
-
-[node name="VictoryLayer" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="ColorRect" type="ColorRect" parent="VictoryLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.588235)
 
 [connection signal="timeout" from="EnemyPath/SpawnTimer" to="EnemyPath" method="spawn_enemy"]
 [connection signal="stop_spawning_enemies" from="DifficultyManager" to="EnemyPath" method="_on_difficulty_manager_stop_spawning_enemies"]
