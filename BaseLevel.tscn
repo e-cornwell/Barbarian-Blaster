@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cqttcl1n2ccp"]
+[gd_scene load_steps=22 format=3 uid="uid://cqttcl1n2ccp"]
 
 [ext_resource type="PackedScene" uid="uid://c35684j5btit7" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_knq2t"]
 [ext_resource type="MeshLibrary" uid="uid://cp163ejsu4moa" path="res://MeshLibraries/SpaceLibrary.tres" id="1_lvb7b"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ce0is3pjj03ee" path="res://Base/base.tscn" id="3_o2j4u"]
 [ext_resource type="Script" uid="uid://hx6w382ji5ks" path="res://turret_manager.gd" id="5_cwwxe"]
 [ext_resource type="PackedScene" uid="uid://dwin256y60208" path="res://Turret/turret.tscn" id="6_ufkdr"]
+[ext_resource type="FontFile" uid="uid://cqhjdbikphtcd" path="res://Assets/Asap/static/Asap-Bold.ttf" id="8_clh6v"]
 [ext_resource type="Script" uid="uid://b8ky56id6sukx" path="res://bank.gd" id="8_tv3th"]
 [ext_resource type="PackedScene" uid="uid://c15srreo6einb" path="res://DifficultyManager/difficulty_manager.tscn" id="9_xkmwr"]
 [ext_resource type="PackedScene" uid="uid://dsu33hhrqv3ok" path="res://UserInterface/victory_layer.tscn" id="10_now27"]
@@ -42,6 +43,9 @@ albedo_color = Color(0.281187, 0.281187, 0.281187, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_in127"]
 albedo_color = Color(0.282353, 0.282353, 0.282353, 1)
+
+[sub_resource type="Theme" id="Theme_in127"]
+default_font = ExtResource("8_clh6v")
 
 [sub_resource type="LabelSettings" id="LabelSettings_epnn3"]
 font_size = 64
@@ -135,10 +139,8 @@ autostart = true
 
 [node name="Base" parent="." instance=ExtResource("3_o2j4u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -6)
-max_health = 50
 
 [node name="TurretManager" type="Node3D" parent="." node_paths=PackedStringArray("enemy_path")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("5_cwwxe")
 turret = ExtResource("6_ufkdr")
 enemy_path = NodePath("../EnemyPath")
@@ -150,6 +152,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = SubResource("Theme_in127")
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
@@ -162,8 +165,10 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "placeholder"
 label_settings = SubResource("LabelSettings_epnn3")
+uppercase = true
 
 [node name="DifficultyManager" parent="." instance=ExtResource("9_xkmwr")]
+game_length = 180.0
 
 [node name="VictoryLayer" parent="." instance=ExtResource("10_now27")]
 visible = false
